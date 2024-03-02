@@ -31,7 +31,7 @@ function App() {
         <h1>ReedCV</h1>
         <div className="App-header-menu-items">
           <nav className="App-header-menu-item">
-            <a href="#" className="menu-link">Contact</a>
+            <p className="menu-link">Contact</p>
           </nav>
         </div>
       </header>
