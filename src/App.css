@@ -80,6 +80,24 @@ input[type='file'] {
   background-color: #0056b3;
 }
 
+.error-msg{
+  color: red;
+}
+
+.ag-theme-alpine{
+  padding: 4rem;
+  width: 100% !important;
+}
+
+.ag-root-wrapper{
+  width: auto;
+}
+.results{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 @keyframes App-logo-spin {
   from {
