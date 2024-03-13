@@ -21,12 +21,6 @@ function ResumeResults(props) {
     { filename: "Name_resume_5", email: "name5@gmail.com", score: "34%", contactnumber:"+1 2213457627", missingpoints:"NIL", sortable: true, filter: true, resizable: true  },
   ]);
 
-  const [gridApi, setGridApi] = useState(null);
-
-  const onGridReady = (params) => {
-    setGridApi(params.api);
-  };
-
   const onBtnExport = useCallback(() => {
     gridRef.current.api.exportDataAsCsv();
   }, []);
