@@ -111,7 +111,7 @@ function ApplicationMainForm() {
         </div>
       </div>
         <button className="submit-btn" onClick={handleSubmit} disabled={isActiveSubmit}>Submit</button> 
-        {error != null && <p>error</p>}
+        {error != null && <p>{error}</p>}
         {loading && <ProgressBar animated now={100} label={`Loading...`} style={{ width: '50%' }} />}
         {submitted && <ResumeResults rowData={rowData} jobDesp={jobDescription} />}
     </div>
