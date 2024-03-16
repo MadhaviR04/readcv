@@ -3,7 +3,7 @@ name: Deploy to SitePad
 on:
   push:
     branches:
-      - dev  # Adjust branch name if needed
+      - master  # Adjust branch name if needed
 
 jobs:
   deploy:
@@ -31,4 +31,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
-          remote-dir: /recruitgpt.sphyzee.com/fe-react 
+          remote-dir: /recruitgpt.sphyzee.com 
