@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ResumeResults from './ResumeResults';
+import ApplicationFooter from './ApplicationFooter';
 import axios from 'axios';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,10 +10,12 @@ function ApplicationMainForm() {
   const [jobDescription, setJobDescription] = useState('');
   const [resumeFiles, setResumeFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  const [isActiveSubmit, setIsActiveSubmit] = useState(false);
+  const [isActiveSubmit, setIsActiveSubmit] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [error, setError] = useState(null);
   const [rowData, setRowData] = useState([]);
+  const uploadInputRef = useRef(null);
 
   const handleJobDescriptionChange = (e) => {
     setJobDescription(e.target.value);
@@ -21,6 +24,10 @@ function ApplicationMainForm() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      setSubmitted(false);
+      if (uploadInputRef.current) {
+        uploadInputRef.current.value = ''; // Clear the value of the file input
+      }
       const formData = new FormData();
       formData.append('job_description', jobDescription);
       resumeFiles.forEach((file) => {
@@ -31,7 +38,7 @@ function ApplicationMainForm() {
         'Content-Type': 'multipart/form-data' // Set Content-Type header
       }
     };
-      const response = await axios.post('https://172.172.161.88:8000/uploadfiles/', formData, config);
+      const response = await axios.post('http://172.172.161.88:8000/uploadfiles/', formData, config);
       console.log('API Response:', response.data);
       const modifiedData = response.data.map(item => ({
         ...item,
@@ -53,12 +60,14 @@ function ApplicationMainForm() {
     const files = Array.from(e.target.files);
     const selectedFiles = files.slice(0, 5);
     const totalSize = selectedFiles.reduce((acc, file) => acc + file.size, 0);
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
     if (totalSize > maxSize) {
       e.target.value = null; // Clear the file input
+      setShowError(true);
       setIsActiveSubmit(true);
     } else {
       setResumeFiles([...resumeFiles, ...selectedFiles]);
+      setShowError(false);
       setIsActiveSubmit(false);
     }
   };
@@ -69,37 +78,48 @@ function ApplicationMainForm() {
     setResumeFiles(updatedFiles);
   };
 
+
+  // Disable submit button if job description or resume files are empty
+  useEffect(() => {
+    const activeSubmit = jobDescription.trim() === '' || resumeFiles.length === 0;
+    setIsActiveSubmit(activeSubmit);
+  }, [jobDescription, resumeFiles]);
+  
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>ReedCV</h1>
+        <h1>RecruitGPT</h1>
         <div className="App-header-menu-items">
           <nav className="App-header-menu-item">
-            <p className="menu-link">Contact</p>
-          </nav>
+            <p className="menu-link">Contact:<a href="mailto:recruitgpt.ai@gmail.com">recruitgpt.ai@gmail.com</a></p>
+            <p className="menu-link"><a href="https://forms.gle/SVoNaXcNNAWHQb3z6" className="feedback-link">Your feedback here</a></p>         </nav>
         </div>
       </header>
+      <div className="app-desc"><p>
+      A RecruitGPT streamlines the process of managing the job listings and screen candidate profiles in minutes. With intuitive features and a user-friendly interface, the app enhances efficiency and collaboration in the recruitment process.</p></div>
       <div className="form-actions">
         <div className="container action-textbox">
           <h2>Job Description</h2>
           <textarea
             value={jobDescription}
             onChange={handleJobDescriptionChange}
-            placeholder="Paste job description here..."
+            placeholder="Paste your job description (JD) here..."
             rows={10}
           />
         </div>
         <div className="container action-upload">
           <h2>Upload Resumes</h2>
           <p>Allowed file formats: PDF / Docx / Doc</p>
-          <p>Please limit your files to 5 & file size don't exceed 5 MB</p>
+          <p>Please limit your files to 5 & File size shouldn't exceed 5 MB</p>
           <input
+            ref={uploadInputRef}
             type="file"
             accept=".pdf,.doc,.docx"
             onChange={handleResumeUpload}
             multiple
           />
-          {isActiveSubmit  && <p className="error-msg">Total file size exceeds 5MB limit</p>}
+          {showError  && <p className="error-msg">Total file size exceeds 5MB limit</p>}
           <div>
             {resumeFiles.map((file, index) => (
               <div key={index}>
@@ -110,11 +130,12 @@ function ApplicationMainForm() {
           </div>
         </div>
       </div>
-        <button className="submit-btn" onClick={handleSubmit} disabled={isActiveSubmit}>Submit</button> 
+        <button className={`submit-btn ${isActiveSubmit ? 'disabled' : ''}`} onClick={handleSubmit} disabled={isActiveSubmit}>Submit</button> 
         {error != null && <p>{error}</p>}
         {loading && <ProgressBar animated now={100} label={`Loading...`} style={{ width: '50%' }} />}
         {submitted && <ResumeResults rowData={rowData} jobDesp={jobDescription} />}
-    </div>
+        <ApplicationFooter/>
+      </div>
   );
 }
 
