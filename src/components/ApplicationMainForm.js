@@ -31,7 +31,7 @@ function ApplicationMainForm() {
         'Content-Type': 'multipart/form-data' // Set Content-Type header
       }
     };
-      const response = await axios.post('http://172.172.161.88:8000/uploadfiles/', formData, config);
+      const response = await axios.post('https://172.172.161.88:8000/uploadfiles/', formData, config);
       console.log('API Response:', response.data);
       const modifiedData = response.data.map(item => ({
         ...item,
