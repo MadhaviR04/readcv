@@ -40,10 +40,7 @@ function ApplicationMainForm() {
     };
       const response = await axios.post('http://172.172.161.88:8000/uploadfiles/', formData, config);
       console.log('API Response:', response.data);
-      const modifiedData = response.data.map(item => ({
-        ...item,
-        MissingPoints: '-' // Add the new value
-        }));
+      const modifiedData = response.data;
       setRowData(modifiedData);
       //setJobDescription('');
       setResumeFiles([]);
@@ -93,7 +90,7 @@ function ApplicationMainForm() {
         <div className="App-header-menu-items">
           <nav className="App-header-menu-item">
             <p className="menu-link">Contact:<a href="mailto:recruitgpt.ai@gmail.com">recruitgpt.ai@gmail.com</a></p>
-            <p className="menu-link"><a href="https://forms.gle/SVoNaXcNNAWHQb3z6" className="feedback-link">Your feedback here</a></p>         </nav>
+            <p className="menu-link"><a href="https://forms.gle/SVoNaXcNNAWHQb3z6" target="_blank" rel="noreferrer" className="feedback-link">Your feedback here</a></p>         </nav>
         </div>
       </header>
       <div className="app-desc"><p>

@@ -26,10 +26,6 @@
   font-size: calc(20px + 2vmin);
 }
 
-.App-header-menu-items{
-  display: flex;
-}
-
 .App-header-menu-item a{
   color: #0066CC; /* White menu link text */
   text-decoration: none;
@@ -41,7 +37,7 @@
 }
 
 .App-header-menu-item{
-  display: block;
+  display: flex;
 }
 
 .app-desc{
