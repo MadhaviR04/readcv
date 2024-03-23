@@ -23,9 +23,6 @@ function ResumeResults(props) {
     gridRef.current.api.exportDataAsCsv();
   }, []);
 
-  const autoSizeStrategy = {
-    type: 'fitCellContents'
-};
 
 return (
 
