@@ -11,10 +11,10 @@ function ResumeResults(props) {
   const [columnDefs] = useState([
     { headerName: "File Name", field: "filename", resizable: true },
     { headerName: "Email Id", field: "email_id" },
-    { headerName: "Phone Number", field: "phone_number" },
+    { headerName: "Phone Number", field: "phone_number", tooltipField: "email_id", headerTooltip: "Tooltip for Athlete Column Header"},
     { headerName: "Candidate Name", field: "Candidate Name" },
-    { headerName: "Matching Score", field: "Matching Score", resizable: true },
-    { headerName: "Missing Points", field: "Unmatched Keywords" }
+    { headerName: "Matching Score", field: "Matching Score", resizable: true},
+    { headerName: "Missing Keywords", field: "Unmatched Keywords"}
   ]);
 
   const [rowData] = useState(props.rowData);
@@ -38,13 +38,12 @@ return (
         ref={gridRef}
         columnDefs={columnDefs}
         rowData={rowData}>
-        autoSizeStrategy={autoSizeStrategy}
       </AgGridReact>
     </div>
 </div>
 
 )
-	
+  
 }
 
 export default ResumeResults;

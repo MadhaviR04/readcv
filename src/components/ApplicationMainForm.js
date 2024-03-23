@@ -38,7 +38,7 @@ function ApplicationMainForm() {
         'Content-Type': 'multipart/form-data' // Set Content-Type header
       }
     };
-      const response = await axios.post('http://172.172.161.88:8000/uploadfiles/', formData, config);
+      const response = await axios.post('https://recuritgpt1-9uye9vs7.b4a.run/uploadfiles/', formData, config);
       console.log('API Response:', response.data);
       const modifiedData = response.data;
       setRowData(modifiedData);
