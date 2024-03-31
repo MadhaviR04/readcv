@@ -38,7 +38,7 @@ function ApplicationMainForm() {
         'Content-Type': 'multipart/form-data' // Set Content-Type header
       }
     };
-      const response = await axios.post('https://recuritgpt1-9uye9vs7.b4a.run/uploadfiles/', formData, config);
+      const response = await axios.post('https://recruitgpt.eastus.cloudapp.azure.com/uploadfiles/', formData, config);
       console.log('API Response:', response.data);
       const modifiedData = response.data;
       setRowData(modifiedData);
@@ -94,7 +94,8 @@ function ApplicationMainForm() {
         </div>
       </header>
       <div className="app-desc"><p>
-      A RecruitGPT streamlines the process of managing the job listings and screen candidate profiles in minutes. With intuitive features and a user-friendly interface, the app enhances efficiency and collaboration in the recruitment process.</p></div>
+        Automation, Primary Objective is to help recruiters in their hiring process by efficiently matching job descriptions with candidate resumes. I analyze the job description provided by the recruiter, identifying key skills, qualifications, and experience requirements. Simultaneously, I evaluate resumes attached here, extracting relevant information such as roles and reposibilities across work history, skills, and achievements. By employing natural language processing (NLP) techniques and machine learning algorithms, I compare the job description criteria with the content of resumes to generate a comprehensive score for each candidate. This score serves as a quantitative measure of how well a candidate's qualifications align with the job requirements, enabling human recruiters to easily shortlist resumes based on objective assessments. Ultimately, our goal is to save time and effort for recruiters, ensuring that only the most suitable candidates advance in the hiring process.
+      </p></div>
       <div className="form-actions">
         <div className="container action-textbox">
           <h2>Job Description</h2>
