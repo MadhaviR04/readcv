@@ -57,7 +57,7 @@ function ApplicationMainForm() {
     const files = Array.from(e.target.files);
     const selectedFiles = files.slice(0, 5);
     const totalSize = selectedFiles.reduce((acc, file) => acc + file.size, 0);
-    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
     if (totalSize > maxSize) {
       e.target.value = null; // Clear the file input
       setShowError(true);

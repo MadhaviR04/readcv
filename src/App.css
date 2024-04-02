@@ -46,8 +46,19 @@
 }
 
 .app-desc p{
-  width: 60%;
+  width: 90%;
   font-weight: 600;
+}
+
+.feedback-link{  
+  color: aliceblue !important;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #1E90FF;
+  border: none;
+  cursor: pointer;
 }
 
 .menu-link a{
