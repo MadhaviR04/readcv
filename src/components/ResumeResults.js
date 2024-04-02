@@ -20,7 +20,10 @@ function ResumeResults(props) {
   const [rowData] = useState(props.rowData);
 
   const onBtnExport = useCallback(() => {
-    gridRef.current.api.exportDataAsCsv();
+    gridRef.current.api.exportDataAsCsv({
+      suppressQuotes: true, // Prevent values from being surrounded by quotes
+      columnSeparator: ',', // Customize the column separator
+    });
   }, []);
 
 
